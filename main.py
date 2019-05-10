@@ -61,7 +61,6 @@ while True:
     for f in food:
         if(is_colliding(player, f)):
             player.increase_size(f.get_size())
-            # print("Player size = %d" % player.get_size())
             food.remove(f)
 
     for p in poison:
