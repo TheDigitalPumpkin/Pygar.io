@@ -1,6 +1,7 @@
 import sys, pygame
 from entities.player import Player
 from entities.food import Food
+from entities.poison import Poison
 from constants import *
 import random
 import math
@@ -11,10 +12,10 @@ screen.fill(WHITE)
 pygame.display.set_caption("Pygar.io")
 
 player = Player()
-food_list = []
-food_rect_list = []
-pygame.time.set_timer(generate_food, 400)
-
+food = []
+poison = []
+pygame.time.set_timer(generate_food, 600)
+pygame.time.set_timer(generate_poison, 1200)
 ## TODO: Make a separate GameScreen class.
 
 def is_colliding(player, cell):
@@ -32,19 +33,31 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == generate_food:
-            new_food = Food()
-            food_list.append(new_food)
+            food.append(Food())
             pygame.time.set_timer(generate_food, 600)
+        if event.type == generate_poison:
+            poison.append(Poison())
+            pygame.time.set_timer(generate_poison, 1200)
+
 
     screen.fill(WHITE)
 
-    for f in food_list:
+    for f in food:
         f.draw(screen)
 
-    for f in food_list:
+    for p in poison:
+        p.draw(screen)
+
+    for f in food:
         if(is_colliding(player, f)):
             player.increase_size(f.get_size())
-            food_list.remove(f)
+            # print("Player size = %d" % player.get_size())
+            food.remove(f)
+
+    for p in poison:
+        if(is_colliding(player, p)):
+            player.decrease_size(p.get_size())
+            poison.remove(p)
 
     player.update()
     player.draw(screen)

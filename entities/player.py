@@ -8,10 +8,10 @@ from entities.cell import Cell
 class Player(Cell):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface([5, 5])
+        self.image = pygame.Surface([8, 8])
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
-        self.size = 5
+        self.size = 8
 
         if(pygame.display.get_surface() is not None):
             self.x = pygame.display.get_surface().get_width() / 2
@@ -37,6 +37,9 @@ class Player(Cell):
     def increase_size(self, size):
         self.size += size / 4
 
+    def decrease_size(self, size):
+        self.size -= size / 4
+
     def get_size(self):
         return self.size
 
@@ -45,6 +48,3 @@ class Player(Cell):
 
     def get_y(self):
         return self.y
-
-    def get_rect(self):
-        return self.rect
