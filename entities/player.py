@@ -1,9 +1,9 @@
 import pygame
 import random
 import math
+from constants import *
 from entities.cell import Cell
 
-BLUE = (0, 76, 153)
 
 class Player(Cell):
     def __init__(self):
@@ -22,7 +22,7 @@ class Player(Cell):
             self.y = random.randrange(0, 600)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, BLUE, (int(self.x), int(self.y)), self.size, 0)
+        pygame.draw.circle(screen, BLUE, (int(self.x), int(self.y)), int(self.size), 0)
 
     def update(self):
         pos = pygame.mouse.get_pos()
@@ -33,3 +33,18 @@ class Player(Cell):
 
         self.x += math.cos(angle)
         self.y += math.sin(angle)
+
+    def increase_size(self, size):
+        self.size += size / 4
+
+    def get_size(self):
+        return self.size
+
+    def get_x(self):
+        return self.x
+
+    def get_y(self):
+        return self.y
+
+    def get_rect(self):
+        return self.rect
