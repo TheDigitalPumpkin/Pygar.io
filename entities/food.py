@@ -1,6 +1,6 @@
 import pygame
 import random
-from cell import Cell
+from entities.cell import Cell
 
 DARK_GREEN = (0, 102, 0)
 

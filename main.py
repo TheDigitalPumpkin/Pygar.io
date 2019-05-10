@@ -1,13 +1,9 @@
 import sys, pygame
-from player import Player
-from food import Food
+from entities.player import Player
+from entities.food import Food
+from constants import *
 import random
 pygame.init()
-
-SCREEN_SIZE = [1024, 768]
-WHITE = (255, 255 , 255)
-generate_food = pygame.USEREVENT + 1
-game_just_started = True
 
 screen = pygame.display.set_mode(SCREEN_SIZE)
 screen.fill(WHITE)
@@ -15,15 +11,11 @@ pygame.display.set_caption("Pygar.io")
 
 player = Player()
 food_list = []
+pygame.time.set_timer(generate_food, 400)
 
 ## TODO: Make a separate GameScreen class.
-## TODO: Make a list of constants
 
 while True:
-    if(game_just_started):
-        pygame.time.set_timer(generate_food, 200)
-        game_just_started = False
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -31,7 +23,7 @@ while True:
             food_x = random.randrange(0, 760)
             food_y = random.randrange(0, 1000)
             food_list.append(Food(food_x, food_y))
-            pygame.time.set_timer(generate_food, 200)
+            pygame.time.set_timer(generate_food, 400)
 
     screen.fill(WHITE)
 

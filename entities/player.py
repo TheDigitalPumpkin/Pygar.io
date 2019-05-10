@@ -1,7 +1,7 @@
 import pygame
 import random
 import math
-from cell import Cell
+from entities.cell import Cell
 
 BLUE = (0, 76, 153)
 
@@ -30,7 +30,6 @@ class Player(Cell):
         angle = math.atan2(relative_y, relative_x)
 
         dist_cursor = math.sqrt(pow(pos[0] - self.x, 2) + pow(pos[1] - self.y, 2))
-        #print((15 / dist_cursor))
 
         self.x += math.cos(angle)
         self.y += math.sin(angle)
