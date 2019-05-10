@@ -2,6 +2,7 @@ import pygame
 import random
 from constants import *
 from entities.cell import Cell
+from pygame import gfxdraw
 
 class Food(Cell):
     def __init__(self):
@@ -14,7 +15,8 @@ class Food(Cell):
         self.y = random.randrange(0, 760)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, DARK_GREEN, (self.x, self.y), self.size, 0)
+        pygame.gfxdraw.aacircle(screen, self.x, self.y, self.size, DARK_GREEN)
+        pygame.gfxdraw.filled_circle(screen, self.x, self.y, self.size, DARK_GREEN)
 
     def get_x(self):
         return self.x

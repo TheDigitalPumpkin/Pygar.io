@@ -14,8 +14,10 @@ pygame.display.set_caption("Pygar.io")
 player = Player()
 food = []
 poison = []
+score = 0
 pygame.time.set_timer(generate_food, 600)
 pygame.time.set_timer(generate_poison, 1200)
+pygame.time.set_timer(increase_score, 200)
 ## TODO: Make a separate GameScreen class.
 
 def is_colliding(player, cell):
@@ -25,7 +27,11 @@ def is_colliding(player, cell):
     else:
         return False
 
+## TODO: Move this to GameScreen class
 
+pygame.font.init()
+font = pygame.font.SysFont("Inconsolata", 24)
+textSurface = font.render(str(score), True, BLACK)
 
 # Main game loop
 while True:
@@ -38,9 +44,13 @@ while True:
         if event.type == generate_poison:
             poison.append(Poison())
             pygame.time.set_timer(generate_poison, 1200)
-
+        if event.type == increase_score:
+            score += player.get_size() / 10 + 1
 
     screen.fill(WHITE)
+    textSurface = font.render(str(int(score)), True, BLACK)
+    screen_surface = pygame.display.get_surface()
+    screen_surface.blit(textSurface, (0, 0))
 
     for f in food:
         f.draw(screen)

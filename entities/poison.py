@@ -1,5 +1,6 @@
 from entities.cell import Cell
 from constants import *
+from pygame import gfxdraw
 import random
 import pygame
 
@@ -14,8 +15,10 @@ class Poison(Cell):
         self.y = random.randrange(0, 760)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, DARK_RED, (int(self.x), int(self.y)), int(self.size), 0)
-        pygame.draw.circle(screen, BLACK, (int(self.x), int(self.y)), int(self.size / 2), 0)
+        pygame.gfxdraw.aacircle(screen, int(self.x), int(self.y), int(self.size), DARK_RED)
+        pygame.gfxdraw.filled_circle(screen, int(self.x), int(self.y), int(self.size), DARK_RED)
+        pygame.gfxdraw.aacircle(screen, int(self.x), int(self.y), int(self.size / 2), BLACK)
+        pygame.gfxdraw.filled_circle(screen, int(self.x), int(self.y), int(self.size / 2), BLACK)
 
     def get_x(self):
         return self.x

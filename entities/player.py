@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+from pygame import gfxdraw
 from constants import *
 from entities.cell import Cell
 
@@ -22,7 +23,8 @@ class Player(Cell):
             self.y = random.randrange(0, 600)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, BLUE, (int(self.x), int(self.y)), int(self.size), 0)
+        pygame.gfxdraw.aacircle(screen, int(self.x), int(self.y), int(self.size), BLUE)
+        pygame.gfxdraw.filled_circle(screen, int(self.x), int(self.y), int(self.size), BLUE)
 
     def update(self):
         pos = pygame.mouse.get_pos()

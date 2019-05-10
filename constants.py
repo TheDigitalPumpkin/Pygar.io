@@ -13,3 +13,4 @@ SCREEN_SIZE = [1366, 768]
 # Game events
 generate_food = pygame.USEREVENT + 1
 generate_poison = pygame.USEREVENT + 2
+increase_score = pygame.USEREVENT + 3
