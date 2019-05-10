@@ -22,10 +22,12 @@ class Player(Cell):
             self.x = random.randrange(0, 600)
             self.y = random.randrange(0, 600)
 
+    # Draws an anti-aliased circle, which represents the player
     def draw(self, screen):
         pygame.gfxdraw.aacircle(screen, int(self.x), int(self.y), int(self.size), BLUE)
         pygame.gfxdraw.filled_circle(screen, int(self.x), int(self.y), int(self.size), BLUE)
 
+    # updates the player's (x, y) coordinates
     def update(self):
         pos = pygame.mouse.get_pos()
         relative_x, relative_y = pos[0] - self.x, pos[1] - self.y
@@ -36,9 +38,11 @@ class Player(Cell):
         self.x += math.cos(angle)
         self.y += math.sin(angle)
 
+    # Increases the player's size, called when the player collides with a food cell
     def increase_size(self, size):
         self.size += size / 4
 
+    # Decreases the player's size, called when the player collides with a poison cell
     def decrease_size(self, size):
         self.size -= size / 4
 

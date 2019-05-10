@@ -5,6 +5,7 @@ BLACK = (0, 0, 0)
 BLUE = (0, 76, 153)
 DARK_GREEN = (0, 102, 0)
 DARK_RED = (102, 0, 0)
+PURPLE = (53, 7, 100)
 WHITE = (255, 255 , 255)
 
 # Screen dimension
