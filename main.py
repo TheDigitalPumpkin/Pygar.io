@@ -27,7 +27,6 @@ while True:
             food_x = random.randrange(0, 760)
             food_y = random.randrange(0, 1000)
             food_list.append(Food(food_x, food_y))
-            print(len(food_list))
 
     pygame.time.set_timer(generate_food, 200)
     screen.fill(WHITE)
