@@ -60,30 +60,36 @@ while True:
     screen_surface.blit(textSurface, (5, 5))
 
     for f in food:
-        f.draw(screen)
+        if f.is_active():
+            f.draw(screen)
+        else:
+            food.remove(f)
 
     for p in poison:
-        p.draw(screen)
+        if p.is_active():
+            p.draw(screen)
+        else:
+            poison.remove(p)
 
     for f in food:
         for enemy in enemies:
             if(is_colliding(enemy, f)):
                 enemy.increase_size(f.get_size())
-                food.remove(f)
+                f.deactivate()
 
         if(is_colliding(player, f)):
             player.increase_size(f.get_size())
-            food.remove(f)
+            f.deactivate()
 
     for p in poison:
         for enemy in enemies:
             if(is_colliding(enemy, p)):
                 enemy.decrease_size(p.get_size())
-                poison.remove(p)
+                p.deactivate()
 
         if(is_colliding(player, p)):
             player.decrease_size(p.get_size())
-            poison.remove(p)
+            p.deactivate()
 
     for enemy in enemies:
         enemy.update(player)

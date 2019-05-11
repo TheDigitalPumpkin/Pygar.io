@@ -13,6 +13,7 @@ class Food(Cell):
         self.rect = self.image.get_rect()
         self.x = random.randrange(0, 1350)
         self.y = random.randrange(0, 760)
+        self.active = True
 
     def draw(self, screen):
         pygame.gfxdraw.aacircle(screen, self.x, self.y, self.size, DARK_GREEN)
@@ -26,3 +27,9 @@ class Food(Cell):
 
     def get_size(self):
         return self.size
+
+    def is_active(self):
+        return self.active
+
+    def deactivate(self):
+        self.active = False

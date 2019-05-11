@@ -13,7 +13,7 @@ class Enemy(Player):
         self.image.fill(PURPLE)
         self.rect = self.image.get_rect()
         self.size = 8
-        self.directions_x = [-1, 1, 0]
+        self.directions = [-1, 1, 0, 1, -1]
 
         self.x = random.randrange(0, 1300)
         self.y = random.randrange(0, 760)
@@ -33,8 +33,11 @@ class Enemy(Player):
 
     def update(self, player):
         new_position = self.distance_from_player(player)
-        if new_position:
+        if new_position != 0:
             self.x, self.y = (self.x + new_position[0] / 2, self.y + new_position[1] / 2)
+        else:
+            self.x = self.directions[random.randrange(0, 4)]
+            self.y = self.directions[random.randrange(0, 4)]
 
     def increase_size(self, size):
         self.size += size / 4
