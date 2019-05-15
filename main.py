@@ -22,9 +22,10 @@ pygame.time.set_timer(generate_food, 600)
 pygame.time.set_timer(generate_poison, 1200)
 pygame.time.set_timer(increase_score, 200)
 
-for i in range(0, 4):
-    enemies.append(Enemy())
+# for i in range(0, 4):
+enemies.append(Enemy())
 
+food.append(Food())
     ## TODO: Make a separate GameScreen class.
 
 def is_colliding(player, cell):
@@ -34,6 +35,10 @@ def is_colliding(player, cell):
     else:
         return False
 
+def clear_foods(food_list):
+    for food in food_list:
+        if not food.is_active():
+            food_list.remove(f)
 ## TODO: Move this to GameScreen class
 
 pygame.font.init()
@@ -45,22 +50,25 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
         if event.type == generate_food:
-            food.append(Food())
+            if len(food) < 100:
+                food.append(Food())
             pygame.time.set_timer(generate_food, 600)
+
         if event.type == generate_poison:
-            poison.append(Poison())
+            if len(poison) < 100:
+                poison.append(Poison())
             pygame.time.set_timer(generate_poison, 1200)
+
         if event.type == increase_score:
             score += player.get_size() / 10 + 1
 
-    # Draws the player's current score on the top left corner of the screen.
     screen.fill(WHITE)
     textSurface = font.render(str(int(score)), True, BLACK)
     screen_surface = pygame.display.get_surface()
     screen_surface.blit(textSurface, (5, 5))
 
-    # The following 2 loops draw the food and poison cells on the screen if theyy are active. If they aren't active, removes them from the arrays.
     for f in food:
         if f.is_active():
             f.draw(screen)
@@ -73,22 +81,16 @@ while True:
         else:
             poison.remove(p)
 
-    # The following 2 loops handle the player's and the enemies' colision with food and poison cells.
     for f in food:
-        # For each enemy
         for enemy in enemies:
-            # Checks if the enemy is colliding with a food cell
             if(is_colliding(enemy, f)):
-                # If it is, increases the enemy's size and deactivates the food cell
                 enemy.increase_size(f.get_size())
                 f.deactivate()
 
-        # If the player is colliding with a food cell, increases the player's size and deactivates the food cell.
         if(is_colliding(player, f)):
             player.increase_size(f.get_size())
             f.deactivate()
 
-    # Same as the loop before, but deacreses the enemy's or player's size, sicne it's a poison cell.
     for p in poison:
         for enemy in enemies:
             if(is_colliding(enemy, p)):
@@ -100,10 +102,9 @@ while True:
             p.deactivate()
 
     for enemy in enemies:
-        enemy.update(player)
+        enemy.update(player, enemy.get_distance_from_food(food))
         enemy.draw(screen)
 
-    # Updates the player's position, then draws the player on the screen.
     player.update()
     player.draw(screen)
     pygame.display.flip()
