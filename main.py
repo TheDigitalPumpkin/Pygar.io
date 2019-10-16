@@ -1,3 +1,4 @@
+#TODO: Code looks like shit, gotta refactor all of this :(
 import sys, pygame
 from entities.player import Player
 from entities.food import Food
